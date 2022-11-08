@@ -3,6 +3,7 @@ evaluate
 huggingface-hub
 tokenizers
 tqdm
+transformers
 
 # git clone --single-branch --branch fast_tokenizers_BARTpho_PhoBERT_BERTweet https://github.com/datquocnguyen/transformers.git
 # cd transformers

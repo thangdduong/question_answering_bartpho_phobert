@@ -166,7 +166,11 @@ def main(raw_datasets, args):
         # Training
         model.train()
         for _, batch in enumerate(train_dataloader): # Evaluate after each epoch, not after a number of steps!
-            outputs = model(**batch)
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            end_positions = batch['end_positions'].to(device)
+
+            outputs = model(input_ids, attention_mask, end_positions)
             loss = outputs.loss
 
             # backpropagation in 2 GPUs so we need to calculate mean of loss
@@ -184,7 +188,11 @@ def main(raw_datasets, args):
         print("Evaluation!")
         for batch in tqdm(eval_dataloader):
             with torch.no_grad():
-                outputs = model(**batch)
+                input_ids = batch['input_ids'].to(device)
+                attention_mask = batch['attention_mask'].to(device)
+                end_positions = batch['end_positions'].to(device)
+
+                outputs = model(input_ids, attention_mask, end_positions)
 
             start_logits.append(outputs.start_logits.cpu().numpy())
             end_logits.append(outputs.end_logits.cpu().numpy())

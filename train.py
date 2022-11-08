@@ -1,8 +1,8 @@
 import argparse
 from utils.metric import *
 from datasets import load_dataset
-from transformers.models.bartpho.tokenization_bartpho_fast import BartphoTokenizerFast
-from transformers import AutoModelForQuestionAnswering, default_data_collator, get_scheduler
+#from transformers.models.bartpho.tokenization_bartpho_fast import BartphoTokenizerFast
+from transformers import AutoModelForQuestionAnswering, default_data_collator, get_scheduler, AutoTokenizer
 from torch import nn
 import evaluate
 import numpy as np
@@ -234,7 +234,7 @@ if __name__ == "__main__":
     # Filter examples which have just 1 element in list of 'text' answer
     raw_datasets["validation"] = raw_datasets["validation"].filter(lambda x: len(x["answers"]["text"]) == 1)
 
-    tokenizer = BartphoTokenizerFast.from_pretrained(args.pretrained_model)
+    tokenizer = AutoTokenizer.from_pretrained(args.pretrained_model)
     max_length = args.max_length
     stride = args.stride
 

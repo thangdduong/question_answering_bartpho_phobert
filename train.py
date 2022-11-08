@@ -10,6 +10,7 @@ from torch.optim import AdamW
 from tqdm.auto import tqdm
 import torch
 from torch.utils.data import DataLoader
+from utils.metric import compute_metrics
 
 
 def preprocess_training_dataset(examples):
